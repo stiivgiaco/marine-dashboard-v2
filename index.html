@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marine Weather Dashboard Fri 11/04/2025 - Tue 15/04/2025</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f0f0f0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: #ffffff;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .dark {
+      background: #1e1e1e;
+      color: white;
+    }
+
+    .dark iframe {
+      border-color: #444;
+    }
+
+    .dark .header {
+      background: #333;
+    }
+
+    .dark .header div {
+      color: white;
+    }
+
+    .dark a {
+      color: #ffffff;
+    }
+
+    .dark a:hover {
+      color: #ff9800;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 10px;
+      padding: 10px;
+      height: 85%;
+      box-sizing: border-box;
+    }
+
+    .wide {
+      height: 15%;
+      padding: 0 10px 10px 10px;
+      box-sizing: border-box;
+    }
+
+    .frame-box {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .frame-box h3 {
+      margin: 0 0 5px 0;
+      font-size: 14px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      transition: border-color 0.3s;
+    }
+
+    .frame-link {
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div><strong>Marine Weather Dashboard Fri 11/04/2025 - Tue 15/04/2025</strong></div>
+    <div id="clock"></div>
+    <button onclick="document.body.classList.toggle('dark')">🌓 Toggle Dark Mode</button>
+  </div>
+
+  <div class="grid">
+    <div class="frame-box">
+      <h3>Marina di Valletta – Friday</h3>
+      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-friday" target="_blank">🔗 Open Fullscreen</a>
+      <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-friday"></iframe>
+    </div>
+
+    <div class="frame-box">
+      <h3>Porto di Pozzallo – Friday</h3>
+      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-friday" target="_blank">🔗 Open Fullscreen</a>
+      <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-friday"></iframe>
+    </div>
+
+    <div class="frame-box">
+      <h3>Marina di Valletta – Next Tuesday</h3>
+      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-next-tuesday" target="_blank">🔗 Open Fullscreen</a>
+      <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-next-tuesday"></iframe>
+    </div>
+
+    <div class="frame-box">
+      <h3>Porto di Pozzallo – Next Tuesday</h3>
+      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-next-tuesday" target="_blank">🔗 Open Fullscreen</a>
+      <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-next-tuesday"></iframe>
+    </div>
+  </div>
+
+  <div class="wide">
+    <h3 style="margin: 5px 0;">Windy Wave Forecast</h3>
+    <iframe
+      src="https://embed.windy.com/embed2.html?lat=36.102&lon=15.259&detailLat=36.102&detailLon=15.259&width=650&height=250&zoom=8&level=surface&overlay=waves&menu=&message=true&marker=&calendar=now&pressure=true&type=map&location=coordinates&detail=&metricWind=kt&metricTemp=%C2%B0C&radarRange=-1"
+      title="Windy Waves"
+      frameborder="0"
+    ></iframe>
+  </div>
+
+  <script>
+    // Clock logic
+    function updateClock() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString();
+      document.getElementById('clock').textContent = timeString;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Auto-refresh every hour
+    setTimeout(() => location.reload(), 60 * 60 * 1000);
+  </script>
+</body>
+</html>
