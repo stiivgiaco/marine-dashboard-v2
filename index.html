@@ -3,30 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Marine Weather Dashboard</title>
+  <title>Marine Weather Dashboard Fri 11/04/2025 - Tue 15/04/2025</title>
   <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/8028/8028208.png" type="image/png">
   <style>
-    :root {
-      --widget-height: 300px;
-    }
-
     body {
       margin: 0;
       font-family: sans-serif;
       background: #f0f0f0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
       transition: background 0.3s, color 0.3s;
     }
 
     .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
       background: #ffffff;
       border-bottom: 1px solid #ddd;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      padding: 10px 20px;
+    }
+
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    #clock {
+      margin-left: 10px;
+      font-weight: bold;
+      font-size: 16px;
     }
 
     .dark {
@@ -34,72 +45,82 @@
       color: white;
     }
 
+    .dark iframe {
+      border-color: #444;
+    }
+
     .dark .header {
       background: #333;
     }
 
-    .dark .header div {
+    .dark .header div,
+    .dark .title {
       color: white;
     }
 
-    .header #clock {
-      font-weight: bold;
+    .dark a {
+      color: #ff9800;
     }
 
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
       gap: 10px;
       padding: 10px;
+      height: 85%;
+      box-sizing: border-box;
+    }
+
+    .wide {
+      height: 15%;
+      padding: 0 10px 10px 10px;
       box-sizing: border-box;
     }
 
     .frame-box {
       display: flex;
       flex-direction: column;
-      height: var(--widget-height);
+      align-items: center;
     }
 
     .frame-box h3 {
       margin: 0 0 5px 0;
-      font-size: 14px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .frame-link {
-      font-size: 12px;
-      margin-bottom: 5px;
+    .frame-box h3 img {
+      margin-right: 10px;
     }
 
     iframe {
-      flex-grow: 1;
       width: 100%;
+      height: 100%;
       border: 2px solid #ccc;
       border-radius: 8px;
+      transition: border-color 0.3s;
     }
 
-    .windy-section {
-      margin: 10px;
+    .frame-link {
+      font-size: 14px;
+      margin-bottom: 5px;
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
     }
 
-    .windy-iframe {
-      width: 100%;
-      height: 400px;
-      border: 2px solid #ccc;
-      border-radius: 8px;
-    }
-
-    .fullscreen-link {
-      display: block;
-      margin-top: 5px;
-      font-size: 12px;
-      text-align: center;
+    .frame-link span {
+      margin-left: 5px;
     }
 
     .toggle-switch {
       position: relative;
       display: inline-block;
-      width: 34px;
-      height: 20px;
+      width: 40px;
+      height: 22px;
     }
 
     .toggle-switch input {
@@ -116,109 +137,143 @@
       right: 0;
       bottom: 0;
       background-color: #ccc;
-      transition: 0.4s;
       border-radius: 50px;
+      transition: 0.3s;
+      border: none;
     }
 
     .slider:before {
       position: absolute;
       content: "";
-      height: 12px;
-      width: 12px;
-      border-radius: 50px;
-      left: 4px;
-      bottom: 4px;
+      height: 18px;
+      width: 18px;
+      border-radius: 50%;
+      left: 2px;
+      bottom: 2px;
       background-color: white;
-      transition: 0.4s;
+      transition: 0.3s;
     }
 
-    input:checked + .slider {
-      background-color: #4CAF50;
+    .toggle-switch input:checked + .slider {
+      background-color: #4c4c4c;
     }
 
-    input:checked + .slider:before {
-      transform: translateX(14px);
+    .toggle-switch input:checked + .slider:before {
+      transform: translateX(18px);
+    }
+
+    body.dark .toggle-switch input:checked + .slider {
+      background-color: #666;
+    }
+
+    body.dark .toggle-switch input:checked + .slider:before {
+      background-color: white;
+    }
+
+    body.dark .slider {
+      background-color: #444;
+    }
+
+    body.dark .slider:before {
+      background-color: white;
     }
 
     @media (max-width: 768px) {
       .grid {
         grid-template-columns: 1fr;
-      }
-
-      :root {
-        --widget-height: 400px;
-      }
-
-      .windy-iframe {
-        height: 450px;
+        grid-template-rows: auto;
       }
     }
 
-    @media (orientation: landscape) and (max-width: 768px) {
-      :root {
-        --widget-height: 300px;
-      }
+    .frame-link {
+      font-size: 16px;
+    }
 
-      .windy-iframe {
-        height: 350px;
-      }
+    .wide h3 {
+      font-size: 18px;
+    }
+
+    .wide .frame-link {
+      justify-content: center;
+      text-align: center;
+    }
+
+    .wide .frame-link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   </style>
 </head>
 <body>
   <div class="header">
-    <div><strong>Marine Weather Dashboard</strong></div>
-    <div id="clock"></div>
-    <label class="toggle-switch">
-      <input type="checkbox" onclick="document.body.classList.toggle('dark')" />
-      <span class="slider"></span>
-    </label>
+    <div class="top-left">
+      <label class="toggle-switch">
+        <input type="checkbox" onclick="document.body.classList.toggle('dark')" />
+        <span class="slider"></span>
+      </label>
+      <span id="toggle-text" style="font-weight: bold;">☀️</span>
+    </div>
+    <div class="title">
+      Marine Weather Dashboard Fri 11/04 - Tue 15/04 
+      <span id="clock">🕒</span>
+    </div>
   </div>
 
   <div class="grid">
     <div class="frame-box">
-      <h3>Marina di Valletta – Friday</h3>
-      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-friday" target="_blank">🔗 Open Fullscreen</a>
+      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/1200px-Flag_of_Malta.svg.png" alt="Malta Flag" width="20" height="15"> Marina di Valletta – Friday</h3>
+      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-friday" target="_blank"><span>Open Fullscreen</span></a>
       <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-friday"></iframe>
     </div>
 
     <div class="frame-box">
-      <h3>Porto di Pozzallo – Friday</h3>
-      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-friday" target="_blank">🔗 Open Fullscreen</a>
+      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/2880px-Flag_of_Sicily.svg.png" alt="Sicily Flag" width="20" height="15"> Porto di Pozzallo – Friday</h3>
+      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-friday" target="_blank"><span>Open Fullscreen</span></a>
       <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-friday"></iframe>
     </div>
 
     <div class="frame-box">
-      <h3>Marina di Valletta – Next Tuesday</h3>
-      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-next-tuesday" target="_blank">🔗 Open Fullscreen</a>
+      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/1200px-Flag_of_Malta.svg.png" alt="Malta Flag" width="20" height="15"> Marina di Valletta – Next Tuesday</h3>
+      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-next-tuesday" target="_blank"><span>Open Fullscreen</span></a>
       <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-next-tuesday"></iframe>
     </div>
 
     <div class="frame-box">
-      <h3>Porto di Pozzallo – Next Tuesday</h3>
-      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-next-tuesday" target="_blank">🔗 Open Fullscreen</a>
+      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/2880px-Flag_of_Sicily.svg.png" alt="Sicily Flag" width="20" height="15"> Porto di Pozzallo – Next Tuesday</h3>
+      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-next-tuesday" target="_blank"><span>Open Fullscreen</span></a>
       <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-next-tuesday"></iframe>
     </div>
   </div>
 
-  <div class="windy-section">
-    <h3 style="margin: 5px 0;">Windy Wave Forecast</h3>
-    <a class="fullscreen-link" href="https://www.windy.com/-Waves-waves?waves,35.845,14.388,10" target="_blank">🔗 Open in Fullscreen</a>
-    <iframe class="windy-iframe"
-      src="https://embed.windy.com/embed2.html?lat=36.102&lon=15.259&detailLat=36.102&detailLon=15.259&width=650&height=450&zoom=8&level=surface&overlay=waves&menu=&message=true&marker=&calendar=now&pressure=true&type=map&location=coordinates&detail=&metricWind=kt&metricTemp=%C2%B0C&radarRange=-1">
-    </iframe>
+  <div class="wide">
+    <h3 style="margin: 5px 0; text-align: center;">Windy Wave Forecast</h3>
+    <a class="frame-link" href="https://www.windy.com/-Waves-waves?waves,2025041103,36.102,15.259,10" target="_blank"><span>Open Fullscreen</span></a>
+    <iframe
+      src="https://embed.windy.com/embed2.html?lat=36.102&lon=15.259&zoom=5&level=surface&overlay=waves&menu=&message=&marker=&forecast=3&pressure=&unit=metric&only=" 
+      frameborder="0"
+      scrolling="no"
+      allowfullscreen
+      title="Windy Wave Forecast"
+    ></iframe>
   </div>
 
   <script>
-    function updateClock() {
-      const now = new Date();
-      const timeString = now.toLocaleTimeString();
-      document.getElementById('clock').textContent = timeString;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
+    const toggleText = document.getElementById('toggle-text');
+    const clock = document.getElementById('clock');
 
-    setTimeout(() => location.reload(), 60 * 60 * 1000);
+    function updateTime() {
+      const now = new Date();
+      clock.textContent = '🕒 ' + now.toLocaleTimeString();
+    }
+
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    const checkbox = document.querySelector('.toggle-switch input');
+    checkbox.addEventListener('change', () => {
+      toggleText.textContent = checkbox.checked ? "🌙" : "☀️";
+    });
   </script>
 </body>
 </html>
