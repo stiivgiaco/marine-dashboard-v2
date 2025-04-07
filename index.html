@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marine Dashboard</title>
+    <title>Marine Weather Dashboard Fri 11/04/2025 - Tue 15/04/2025</title>
     <style>
         /* General Styles */
         body {
@@ -12,7 +12,12 @@
             padding: 0;
             background-color: #f5f5f5;
         }
-        
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
         .container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -36,18 +41,17 @@
             border: none;
         }
 
-        /* Mobile-specific Styles */
+        /* For mobile-specific styles */
         @media (max-width: 768px) {
             .container {
-                grid-template-columns: 1fr; /* Stack the widgets vertically on smaller screens */
+                grid-template-columns: 1fr; /* Stack widgets vertically on smaller screens */
             }
 
             .widget {
-                height: 500px; /* Increase widget height for mobile devices */
+                height: 500px; /* Increase height for mobile */
             }
         }
 
-        /* Extra small screen (phones in portrait mode) */
         @media (max-width: 480px) {
             .widget {
                 height: 600px; /* Further increase height for very small screens */
@@ -70,11 +74,17 @@
                 background-color: #333;
             }
         }
+
+        /* Windy Widget (Make it full width) */
+        .windy-widget {
+            grid-column: span 2; /* Makes Windy widget span across both columns */
+            height: 100%; /* Adjusts the Windy widget height */
+        }
     </style>
 </head>
 <body>
 
-    <h1 style="text-align: center; margin-top: 20px;">Marine Dashboard</h1>
+    <h1>Marine Weather Dashboard Fri 11/04/2025 - Tue 15/04/2025</h1>
 
     <div class="container">
         <!-- First row with two widgets -->
@@ -99,8 +109,8 @@
             <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-next-tuesday"></iframe>
         </div>
 
-        <!-- Third row with Windy Widgets -->
-        <div class="widget" style="grid-column: span 2;">
+        <!-- Third row with Windy Widget (Spanning across full width) -->
+        <div class="widget windy-widget">
             <h2 style="text-align: center;">Windy - Waves</h2>
             <iframe src="https://www.windy.com/-Waves-waves?waves,2025041103,36.102,15.259,10"></iframe>
         </div>
