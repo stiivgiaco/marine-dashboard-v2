@@ -155,7 +155,7 @@
 
     iframe {
       width: 100%;
-      height: 300px;
+      height: 400px;
       border: 2px solid #ccc;
       border-radius: 8px;
       transition: border-color 0.3s;
@@ -241,31 +241,31 @@
       border-radius: 0;
     }
 
-    .close-btn {
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-color: rgba(0, 0, 0, 0.6); /* darker base */
-      border: 2px solid white;
-      color: white;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      z-index: 1001;
-    }
+.close-btn {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.6); /* darker base */
+  border: 2px solid white;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 1001;
+}
 
-    .close-btn:hover {
-      background-color: rgba(0, 0, 0, 0.8); /* darker on hover */
-      transform: translateX(-50%) scale(1.1);
-    }
+.close-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8); /* darker on hover */
+  transform: translateX(-50%) scale(1.1);
+}
 
     @media (max-width: 768px) {
       .grid {
@@ -273,7 +273,7 @@
       }
 
       iframe {
-        height: 250px;
+        height: 400px;
       }
 
       .wide iframe {
@@ -297,17 +297,141 @@
     </div>
   </div>
 
-  <div class="airport-button-container">
-    <button class="airport-button" onclick="openOverlay('vallettaFri')">Valletta – Friday</button>
-    <button class="airport-button" onclick="openOverlay('pozzalloFri')">Pozzallo – Friday</button>
-    <button class="airport-button" onclick="openOverlay('vallettaTue')">Valletta – Tuesday</button>
-    <button class="airport-button" onclick="openOverlay('pozzalloTue')">Pozzallo – Tuesday</button>
-    <button class="airport-button" onclick="openOverlay('windy')">Windy Forecast</button>
+<div class="airport-button-container">
+  <div class="button-row">
     <button class="airport-button" onclick="openAllOverlays()">Open All Overlays</button>
+    <button class="airport-button" onclick="openOverlay('vallettaFri')">VLT – FRI</button>
+    <button class="airport-button" onclick="openOverlay('pozzalloFri')">POZ – FRI</button>
+    <button class="airport-button" onclick="openOverlay('vallettaTue')">VLT – TUE</button>
+    <button class="airport-button" onclick="openOverlay('pozzalloTue')">POZ – TUE</button>
+  </div>
+  <div class="button-row">
+    <button class="airport-button" onclick="openOverlay('windy')">Windy Forecast</button>
+    <button class="airport-button" onclick="openOverlay('myforecastvlt')">MyForecast - VLT</button>
+    <button class="airport-button" onclick="openOverlay('myforecastpzl')">MyForecast - Pozzallo</button>
     <a class="airport-button" href="https://www.maltairport.com/weather/3-day-forecast-for-mariners/" target="_blank">MIA Mariners Forecast</a>
   </div>
+</div>
+
+<style>
+  .airport-button-container {
+    display: flex;
+    flex-direction: column; /* Stack the rows vertically */
+    gap: 10px; /* Add space between the rows */
+  }
+  .button-row {
+    display: flex;
+    gap: 10px; /* Add space between the buttons in each row */
+  }
+</style>
 
   <div class="grid">
     <div class="frame-box">
-      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/1200px-Flag_of_Malta.svg.png" width="20" height="15"> Marina di Valletta – Friday</h3>
-      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-friday" target="_blank"><
+      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/1200px-Flag_of_Malta.svg.png" width="20" height="15"> Port of Valletta – Friday</h3>
+      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-friday" target="_blank"><span>Open in New Tab</span></a>
+      <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-friday"></iframe>
+    </div>
+
+    <div class="frame-box">
+      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/2880px-Flag_of_Sicily.svg.png" width="20" height="15"> Porto di Pozzallo – Friday</h3>
+      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-friday" target="_blank"><span>Open in New Tab</span></a>
+      <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-friday"></iframe>
+    </div>
+
+    <div class="frame-box">
+      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/1200px-Flag_of_Malta.svg.png" width="20" height="15"> Port of Valletta – Next Tuesday</h3>
+      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-tuesday" target="_blank"><span>Open in New Tab</span></a>
+      <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-tuesday"></iframe>
+    </div>
+
+    <div class="frame-box">
+      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/2880px-Flag_of_Sicily.svg.png" width="20" height="15"> Porto di Pozzallo – Next Tuesday</h3>
+      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-tuesday" target="_blank"><span>Open in New Tab</span></a>
+      <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-tuesday"></iframe>
+    </div>
+ 
+    <div class="frame-box">
+      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/1200px-Flag_of_Malta.svg.png" width="20" height="15"> Port of Valletta</h3>
+      <a class="frame-link" href="https://www.myforecast.com/marine.php?cwid=gn2562305&metric=true&condition=act&city_count=3&zip_code=" target="_blank"><span>Open in New Tab</span></a>
+      <iframe src="https://www.myforecast.com/marine.php?cwid=gn2562305&metric=true&condition=act&city_count=3&zip_code="></iframe>
+    </div>
+
+    <div class="frame-box">
+      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/2880px-Flag_of_Sicily.svg.png" width="20" height="15"> Porto di Pozzallo</h3>
+      <a class="frame-link" href="https://www.myforecast.com/marine.php?cwid=gn2523693&metric=true&condition=act&city_count=4&zip_code=" target="_blank"><span>Open in New Tab</span></a>
+      <iframe src="https://www.myforecast.com/marine.php?cwid=gn2523693&metric=true&condition=act&city_count=4&zip_code="></iframe>
+    </div>
+  </div>
+  <div class="frame-box">
+    <h3><img src="https://img.windy.com/albums/icons/logo-full.png?w=57 "width="20" height="20">Windy Wave Forecast</h3>
+    <a class="frame-link" href="https://www.windy.com/-Waves-waves?waves,2025041103,36.102,15.259,10" target="_blank"><span>Open in New Tab</span></a>
+    <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=bft&zoom=5&overlay=wind&product=ecmwf&level=surface&lat=32.621&lon=14.502&detailLat=35.895&detailLon=14.484&detail=true&message=true"></iframe>
+  </div>
+  <!-- Overlays -->
+  <div class="overlay" id="vallettaFri">
+    <button class="close-btn" onclick="closeOverlay('vallettaFri')">×</button>
+    <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-friday"></iframe>
+  </div>
+
+  <div class="overlay" id="pozzalloFri">
+    <button class="close-btn" onclick="closeOverlay('pozzalloFri')">×</button>
+    <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-friday"></iframe>
+  </div>
+
+  <div class="overlay" id="vallettaTue">
+    <button class="close-btn" onclick="closeOverlay('vallettaTue')">×</button>
+    <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-tuesday"></iframe>
+  </div>
+
+  <div class="overlay" id="pozzalloTue">
+    <button class="close-btn" onclick="closeOverlay('pozzalloTue')">×</button>
+    <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-tuesday"></iframe>
+  </div>
+
+  <div class="overlay" id="windy">
+    <button class="close-btn" onclick="closeOverlay('windy')">×</button>
+    <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=bft&zoom=5&overlay=wind&product=ecmwf&level=surface&lat=32.621&lon=14.502&detailLat=35.895&detailLon=14.484&detail=true&message=true"></iframe>
+  </div>
+
+    <div class="overlay" id="myforecastvlt">
+    <button class="close-btn" onclick="closeOverlay('myforecastvlt')">×</button>
+    <iframe src="https://www.myforecast.com/marine.php?cwid=gn2562305&metric=true&condition=act&city_count=3&zip_code="></iframe>
+  </div>
+      <div class="overlay" id="myforecastpzl">
+    <button class="close-btn" onclick="closeOverlay('myforecastpzl')">×</button>
+    <iframe src="https://www.myforecast.com/marine.php?cwid=gn2523693&metric=true&condition=act&city_count=4&zip_code="></iframe>
+  </div>
+
+  <script>
+    const toggleText = document.getElementById('toggle-text');
+    const clock = document.getElementById('clock');
+
+    function updateTime() {
+      const now = new Date();
+      clock.textContent = '🕒 ' + now.toLocaleTimeString();
+    }
+
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    const checkbox = document.querySelector('.toggle-switch input');
+    checkbox.addEventListener('change', () => {
+      toggleText.textContent = checkbox.checked ? "🌙" : "☀️";
+    });
+
+    function openOverlay(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function closeOverlay(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    function openAllOverlays() {
+      ['vallettaFri', 'pozzalloFri', 'vallettaTue', 'pozzalloTue', 'windy', 'myforecastvlt', 'myforecastpzl'].forEach(id => {
+        openOverlay(id);
+      });
+    }
+  </script>
+</body>
+</html>
