@@ -1,1 +1,11 @@
 
+{
+  "name": "marine-dashboard",
+  "version": "1.0.0",
+  "scripts": {
+    "capture": "node scripts/capture.js"
+  },
+  "dependencies": {
+    "playwright": "^1.52.0"
+  }
+}
