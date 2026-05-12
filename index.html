@@ -362,16 +362,16 @@
         MyForecast - VLT
       </button>
 
-      <button class="airport-button" onclick="openOverlay('myforecastrag')">
-        MyForecast - Ragusa
+      <button class="airport-button" onclick="openOverlay('myforecastpoz')">
+        MyForecast - Pozzallo
       </button>
 
-      <button class="airport-button" onclick="openOverlay('myforecastnotw')">
+      <button class="airport-button" onclick="openOverlay('myforecasttaow')">
+        MyForecast - Taormina Weather
+      </button>
+
+      <button class="airport-button" onclick="openOverlay('myforecastcatw')">
         MyForecast - Catania Weather
-      </button>
-
-      <button class="airport-button" onclick="openOverlay('myforecastragw')">
-        MyForecast - Ragusa Weather
       </button>
 
       <a class="airport-button"
@@ -547,32 +547,26 @@
   </div>
 
   <!-- OVERLAYS -->
-
+  <div class="overlay" id="myforecastcatw">
+    <button class="close-btn" onclick="closeOverlay('myforecastcatw')">×</button>
+    <iframe src="https://www.myforecast.com/index.php?cwid=gn6541468&zipcode=&language=en&metric=true&city_count=4&search=1"></iframe>
+  </div>
+    <div class="overlay" id="myforecasttaow">
+    <button class="close-btn" onclick="closeOverlay('myforecasttaow')">×</button>
+    <iframe src="https://www.myforecast.com/index.php?cwid=gn6537773&language=en&metric=true&city_count=4&search=1"></iframe>
+  </div>
+    <div class="overlay" id="myforecastpoz">
+    <button class="close-btn" onclick="closeOverlay('myforecastpoz')">×</button>
+    <iframe src="https://www.myforecast.com/wave-wind-conditions.php?cwid=gn2523693&metric=true&condition=act&city_count=4&zip_code="></iframe>
+  </div>
+    <div class="overlay" id="myforecastvlt">
+    <button class="close-btn" onclick="closeOverlay('myforecastvlt')">×</button>
+    <iframe src="https://www.myforecast.com/wave-wind-conditions.php?cwid=gn2562305&metric=true&condition=act&city_count=3&zip_code="></iframe>
+  </div>
   <div class="overlay" id="windy">
     <button class="close-btn" onclick="closeOverlay('windy')">×</button>
     <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=bft&zoom=5&overlay=wind&product=ecmwf&level=surface&lat=32.621&lon=14.502&detailLat=35.895&detailLon=14.484&detail=true&message=true"></iframe>
   </div>
-
-  <div class="overlay" id="myforecastvlt">
-    <button class="close-btn" onclick="closeOverlay('myforecastvlt')">×</button>
-    <iframe src="https://www.myforecast.com/marine.php?cwid=gn2562305&metric=true&condition=act&city_count=3&zip_code="></iframe>
-  </div>
-
-  <div class="overlay" id="myforecastnotw">
-    <button class="close-btn" onclick="closeOverlay('myforecastnotw')">×</button>
-    <iframe src="https://www.myforecast.com/index.php?cwid=gn2523998&zipcode=&language=en&metric=true&city_count=3&search=1"></iframe>
-  </div>
-
-  <div class="overlay" id="myforecastrag">
-    <button class="close-btn" onclick="closeOverlay('myforecastrag')">×</button>
-    <iframe src="https://www.myforecast.com/marine.php?cwid=gn2524263&metric=true&condition=act&city_count=4&zip_code="></iframe>
-  </div>
-
-  <div class="overlay" id="myforecastragw">
-    <button class="close-btn" onclick="closeOverlay('myforecastragw')">×</button>
-    <iframe src="https://www.myforecast.com/index.php?cwid=gn2523650&zipcode=&language=en&metric=true&city_count=4&search="></iframe>
-  </div>
-
   <script>
     const toggleText = document.getElementById('toggle-text');
     const clock = document.getElementById('clock');
@@ -603,9 +597,9 @@
       [
         'windy',
         'myforecastvlt',
-        'myforecastrag',
-        'myforecastnotw',
-        'myforecastragw'
+        'myforecastpoz',
+        'myforecasttaow',
+        'myforecastcatw'
       ].forEach(id => {
         openOverlay(id);
       });
