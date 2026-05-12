@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Marine Weather Dashboard Fri 13/06/2025 - Sun 15/06/2025</title>
+  <title>Marine Weather Dashboard Mon 18/05/2026 - Thur 21/05/2026</title>
   <link rel="icon" href="https://img.icons8.com/?size=100&id=PWFg91wNxoc5&format=png" />
+
   <style>
     * {
       box-sizing: border-box;
@@ -20,19 +21,23 @@
       transition: background 0.3s, color 0.3s;
     }
 
-    .header {
-      background: #fff;
-      border-bottom: 1px solid #ddd;
-      padding: 10px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
+.header {
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 
-    .toggle-container {
-      display: flex;
-      align-items: center;
-    }
+.toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
 
     .toggle-switch {
       position: relative;
@@ -84,11 +89,12 @@
       font-weight: bold;
     }
 
-    .title {
-      margin-top: 8px;
-      font-weight: bold;
-      font-size: 16px;
-    }
+.title {
+  margin-top: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+}
 
     #clock {
       margin-left: 8px;
@@ -189,9 +195,15 @@
 
     .airport-button-container {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       gap: 10px;
       padding: 10px;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
@@ -222,6 +234,38 @@
       background-color: #6a6a6a;
     }
 
+    /* NEW FORECAST LINK HOVER EFFECT */
+    .forecast-link {
+      text-decoration: none;
+      color: inherit;
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 8px;
+      transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .forecast-link:hover {
+      background-color: rgba(0, 0, 0, 0.06);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .forecast-link:hover h3 {
+      text-decoration: underline;
+    }
+
+    .dark .forecast-link:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .forecast-link h3 {
+  color: white;
+}
+
     .overlay {
       display: none;
       position: fixed;
@@ -241,31 +285,31 @@
       border-radius: 0;
     }
 
-.close-btn {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.6); /* darker base */
-  border: 2px solid white;
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  z-index: 1001;
-}
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 2px solid white;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 1001;
+    }
 
-.close-btn:hover {
-  background-color: rgba(0, 0, 0, 0.8); /* darker on hover */
-  transform: translateX(-50%) scale(1.1);
-}
+    .close-btn:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+      transform: translateX(-50%) scale(1.1);
+    }
 
     @media (max-width: 768px) {
       .grid {
@@ -280,9 +324,12 @@
         height: 300px;
       }
     }
+    
   </style>
 </head>
+
 <body>
+
   <div class="header">
     <div class="toggle-container">
       <label class="toggle-switch">
@@ -291,137 +338,240 @@
       </label>
       <span id="toggle-text">☀️</span>
     </div>
+
     <div class="title">
-      Marine Weather Dashboard Fri 13/06/2025 - Sun 15/06/2025
+      Marine Weather Dashboard Mon 18/05/2026 - Thur 21/05/2026
       <span id="clock">🕒</span>
     </div>
   </div>
 
-<div class="airport-button-container">
-  <div class="button-row">
-    <button class="airport-button" onclick="openAllOverlays()">Open All Overlays</button>
-    <button class="airport-button" onclick="openOverlay('vallettaFri')">VLT – FRI</button>
-    <button class="airport-button" onclick="openOverlay('ragusaFri')">RAG – FRI</button>
-    <button class="airport-button" onclick="openOverlay('vallettaTue')">VLT – TUE</button>
-    <button class="airport-button" onclick="openOverlay('ragusaTue')">RAG – TUE</button>
-  </div>
-  <div class="button-row">
-    <button class="airport-button" onclick="openOverlay('windy')">Windy Forecast</button>
-    <button class="airport-button" onclick="openOverlay('myforecastvlt')">MyForecast - VLT</button>
-    <button class="airport-button" onclick="openOverlay('myforecastrag')">MyForecast - Ragusa</button>
-    <button class="airport-button" onclick="openOverlay('myforecastnotw')">MyForecast - Catania Weather</button>
-    <button class="airport-button" onclick="openOverlay('myforecastragw')">MyForecast - Ragusa Weather</button>
-    <a class="airport-button" href="https://www.maltairport.com/weather/3-day-forecast-for-mariners/" target="_blank">MIA Mariners Forecast</a>
-  </div>
-</div>
+  <div class="airport-button-container">
 
-<style>
-  .airport-button-container {
-    display: flex;
-    flex-direction: column; /* Stack the rows vertically */
-    gap: 10px; /* Add space between the rows */
-  }
-  .button-row {
-    display: flex;
-    gap: 10px; /* Add space between the buttons in each row */
-  }
-</style>
+    <div class="button-row">
+      <button class="airport-button" onclick="openAllOverlays()">
+        Open All Overlays
+      </button>
+    </div>
+
+    <div class="button-row">
+      <button class="airport-button" onclick="openOverlay('windy')">
+        Windy Forecast
+      </button>
+
+      <button class="airport-button" onclick="openOverlay('myforecastvlt')">
+        MyForecast - VLT
+      </button>
+
+      <button class="airport-button" onclick="openOverlay('myforecastrag')">
+        MyForecast - Ragusa
+      </button>
+
+      <button class="airport-button" onclick="openOverlay('myforecastnotw')">
+        MyForecast - Catania Weather
+      </button>
+
+      <button class="airport-button" onclick="openOverlay('myforecastragw')">
+        MyForecast - Ragusa Weather
+      </button>
+
+      <a class="airport-button"
+         href="https://www.maltairport.com/weather/3-day-forecast-for-mariners/"
+         target="_blank">
+        MIA Mariners Forecast
+      </a>
+    </div>
+
+  </div>
 
   <div class="grid">
+
+    <!-- FORECAST LINKS -->
+
     <div class="frame-box">
-      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/1200px-Flag_of_Malta.svg.png" width="20" height="15"> Port of Valletta – Next Friday</h3>
-      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-friday" target="_blank"><span>Open in New Tab</span></a>
-      <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-friday"></iframe>
+
+      <a href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-monday"
+         target="_blank"
+         class="forecast-link">
+
+        <h3>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/3840px-Flag_of_Malta.svg.png"
+               width="20"
+               height="15">
+          Port of Valletta – Next Monday
+        </h3>
+
+      </a>
+
     </div>
 
     <div class="frame-box">
-      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/2880px-Flag_of_Sicily.svg.png" width="20" height="15"> Porto di Ragusa – Next Friday</h3>
-      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1726/weather-forecast-porto-turistico-marina-di-ragusa-friday" target="_blank"><span>Open in New Tab</span></a>
-      <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1726/weather-forecast-porto-turistico-marina-di-ragusa-friday"></iframe>
+
+      <a href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-monday"
+         target="_blank"
+         class="forecast-link">
+
+        <h3>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
+               width="20"
+               height="15">
+          Porto di Pozzallo – Next Monday
+        </h3>
+
+      </a>
+
     </div>
 
     <div class="frame-box">
-      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/1200px-Flag_of_Malta.svg.png" width="20" height="15"> Port of Valletta – Next Sunday</h3>
-      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-sunday" target="_blank"><span>Open in New Tab</span></a>
-      <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-sunday"></iframe>
+
+      <a href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-monday"
+         target="_blank"
+         class="forecast-link">
+
+        <h3>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
+               width="20"
+               height="15">
+          Porto di Pozzallo – Next Thursday
+        </h3>
+
+      </a>
+
     </div>
 
     <div class="frame-box">
-      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/2880px-Flag_of_Sicily.svg.png" width="20" height="15"> Porto di Ragusa – Next Sunday</h3>
-      <a class="frame-link" href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1726/weather-forecast-porto-turistico-marina-di-ragusa-sunday" target="_blank"><span>Open in New Tab</span></a>
-      <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1726/weather-forecast-porto-turistico-marina-di-ragusa-sunday"></iframe>
+
+      <a href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-monday"
+         target="_blank"
+         class="forecast-link">
+
+        <h3>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/3840px-Flag_of_Malta.svg.png"
+               width="20"
+               height="15">
+          Port of Valletta – Next Thursday
+        </h3>
+
+      </a>
+
     </div>
- 
+
+    <!-- IFRAMES -->
+
     <div class="frame-box">
-      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/1200px-Flag_of_Malta.svg.png" width="20" height="15"> Port of Valletta</h3>
-      <a class="frame-link" href="https://www.myforecast.com/marine.php?cwid=gn2562305&metric=true&condition=act&city_count=3&zip_code=" target="_blank"><span>Open in New Tab</span></a>
+      <h3>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/3840px-Flag_of_Malta.svg.png"
+             width="20"
+             height="15">
+        Port of Valletta
+      </h3>
+
+      <a class="frame-link"
+         href="https://www.myforecast.com/marine.php?cwid=gn2562305&metric=true&condition=act&city_count=3&zip_code="
+         target="_blank">
+        <span>Open in New Tab</span>
+      </a>
+
       <iframe src="https://www.myforecast.com/marine.php?cwid=gn2562305&metric=true&condition=act&city_count=3&zip_code="></iframe>
     </div>
 
     <div class="frame-box">
-      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/2880px-Flag_of_Sicily.svg.png" width="20" height="15"> Porto di Ragusa</h3>
-      <a class="frame-link" href="https://www.myforecast.com/marine.php?cwid=gn2524263&metric=true&condition=act&city_count=4&zip_code=" target="_blank"><span>Open in New Tab</span></a>
-      <iframe src="https://www.myforecast.com/marine.php?cwid=gn2524263&metric=true&condition=act&city_count=4&zip_code="></iframe>
+      <h3>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
+             width="20"
+             height="15">
+        Porto di Pozzallo
+      </h3>
+
+      <a class="frame-link"
+         href="https://www.myforecast.com/marine.php?cwid=gn2523693&metric=true&condition=act&city_count=4&zip_code="
+         target="_blank">
+        <span>Open in New Tab</span>
+      </a>
+
+      <iframe src="https://www.myforecast.com/marine.php?cwid=gn2523693&metric=true&condition=act&city_count=4&zip_code="></iframe>
     </div>
+
     <div class="frame-box">
-      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/2880px-Flag_of_Sicily.svg.png" width="20" height="15"> Weather in Catania</h3>
-      <a class="frame-link" href="https://www.myforecast.com/index.php?cwid=gn6541468&language=en&metric=true&city_count=4&search=1" target="_blank"><span>Open in New Tab</span></a>
-      <iframe src="https://www.myforecast.com/index.php?cwid=gn6541468&language=en&metric=true&city_count=4&search=1"></iframe>
+      <h3>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
+             width="20"
+             height="15">
+        Weather in Taormina
+      </h3>
+
+      <a class="frame-link"
+         href="https://www.myforecast.com/index.php?cwid=gn6537773&language=en&metric=true&city_count=4&search=1"
+         target="_blank">
+        <span>Open in New Tab</span>
+      </a>
+
+      <iframe src="https://www.myforecast.com/index.php?cwid=gn6537773&language=en&metric=true&city_count=4&search=1"></iframe>
     </div>
+
     <div class="frame-box">
-      <h3><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/2880px-Flag_of_Sicily.svg.png" width="20" height="15"> Weather in Ragusa</h3>
-      <a class="frame-link" href="https://www.myforecast.com/index.php?cwid=gn2523650&zipcode=&language=en&metric=true&city_count=4&search=1" target="_blank"><span>Open in New Tab</span></a>
-      <iframe src="https://www.myforecast.com/index.php?cwid=gn2523650&zipcode=&language=en&metric=true&city_count=4&search=1"></iframe>
-    </div>    
+      <h3>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
+             width="20"
+             height="15">
+        Weather in Catania
+      </h3>
+
+      <a class="frame-link"
+         href="https://www.myforecast.com/index.php?cwid=gn6541468&zipcode=&language=en&metric=true&city_count=4&search=1"
+         target="_blank">
+        <span>Open in New Tab</span>
+      </a>
+
+      <iframe src="https://www.myforecast.com/index.php?cwid=gn6541468&zipcode=&language=en&metric=true&city_count=4&search=1"></iframe>
+    </div>
+
   </div>
+
   <div class="frame-box">
-    <h3><img src="https://img.windy.com/albums/icons/logo-full.png?w=57 "width="20" height="20">Windy Wave Forecast</h3>
-    <a class="frame-link" href="https://www.windy.com/-Waves-waves?waves,2025041103,36.102,15.259,10" target="_blank"><span>Open in New Tab</span></a>
+
+    <h3>
+      <img src="https://img.windy.com/albums/icons/logo-full.png?w=57"
+           width="20"
+           height="20">
+      Windy Wave Forecast
+    </h3>
+
+    <a class="frame-link"
+       href="https://www.windy.com/-Waves-waves?waves,2025041103,36.102,15.259,10"
+       target="_blank">
+      <span>Open in New Tab</span>
+    </a>
+
     <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=bft&zoom=5&overlay=waves&product=ecmwf&level=surface&lat=32.621&lon=14.502&detailLat=35.895&detailLon=14.484&detail=true&message=true"></iframe>
-  </div>
-  <!-- Overlays -->
-  <div class="overlay" id="vallettaFri">
-    <button class="close-btn" onclick="closeOverlay('vallettaFri')">×</button>
-    <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-today"></iframe>
+
   </div>
 
-  <div class="overlay" id="ragusaFri">
-    <button class="close-btn" onclick="closeOverlay('ragusaFri')">×</button>
-    <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1726/weather-forecast-porto-turistico-marina-di-ragusa-today"></iframe>
-  </div>
-
-  <div class="overlay" id="vallettaTue">
-    <button class="close-btn" onclick="closeOverlay('vallettaTue')">×</button>
-    <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-tuesday"></iframe>
-  </div>
-
-  <div class="overlay" id="ragusaTue">
-    <button class="close-btn" onclick="closeOverlay('ragusaTue')">×</button>
-    <iframe src="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1726/weather-forecast-porto-turistico-marina-di-ragusa-tuesday"></iframe>
-  </div>
+  <!-- OVERLAYS -->
 
   <div class="overlay" id="windy">
     <button class="close-btn" onclick="closeOverlay('windy')">×</button>
     <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=bft&zoom=5&overlay=wind&product=ecmwf&level=surface&lat=32.621&lon=14.502&detailLat=35.895&detailLon=14.484&detail=true&message=true"></iframe>
   </div>
 
-    <div class="overlay" id="myforecastvlt">
+  <div class="overlay" id="myforecastvlt">
     <button class="close-btn" onclick="closeOverlay('myforecastvlt')">×</button>
     <iframe src="https://www.myforecast.com/marine.php?cwid=gn2562305&metric=true&condition=act&city_count=3&zip_code="></iframe>
   </div>
-    <div class="overlay" id="myforecastnotw">
+
+  <div class="overlay" id="myforecastnotw">
     <button class="close-btn" onclick="closeOverlay('myforecastnotw')">×</button>
     <iframe src="https://www.myforecast.com/index.php?cwid=gn2523998&zipcode=&language=en&metric=true&city_count=3&search=1"></iframe>
   </div>
-    <div class="overlay" id="myforecastrag">
+
+  <div class="overlay" id="myforecastrag">
     <button class="close-btn" onclick="closeOverlay('myforecastrag')">×</button>
     <iframe src="https://www.myforecast.com/marine.php?cwid=gn2524263&metric=true&condition=act&city_count=4&zip_code="></iframe>
   </div>
 
-    <div class="overlay" id="myforecastragw">
+  <div class="overlay" id="myforecastragw">
     <button class="close-btn" onclick="closeOverlay('myforecastragw')">×</button>
     <iframe src="https://www.myforecast.com/index.php?cwid=gn2523650&zipcode=&language=en&metric=true&city_count=4&search="></iframe>
-  </div>  
+  </div>
 
   <script>
     const toggleText = document.getElementById('toggle-text');
@@ -429,13 +579,14 @@
 
     function updateTime() {
       const now = new Date();
-      clock.textContent = '🕒 ' + now.toLocaleTimeString();
+      clock.textContent = '🕒 Current Time: ' + now.toLocaleTimeString();
     }
 
     setInterval(updateTime, 1000);
     updateTime();
 
     const checkbox = document.querySelector('.toggle-switch input');
+
     checkbox.addEventListener('change', () => {
       toggleText.textContent = checkbox.checked ? "🌙" : "☀️";
     });
@@ -449,14 +600,33 @@
     }
 
     function openAllOverlays() {
-      ['vallettaFri', 'ragusaFri', 'vallettaTue', 'ragusaTue', 'windy', 'myforecastvlt', 'myforecastrag', 'myforecastnotw', 'myforecastragw'].forEach(id => {
+      [
+        'windy',
+        'myforecastvlt',
+        'myforecastrag',
+        'myforecastnotw',
+        'myforecastragw'
+      ].forEach(id => {
         openOverlay(id);
       });
     }
   </script>
+
   <footer style="background-color:#222; padding:1rem 0; text-align:center; font-size:0.9rem; color:#ccc;">
-  <p style="margin:0;">&copy; 2025 Marine Weather Dashboard. All rights reserved.</p>
-  <p style="margin:0;">Developed by <a href="https://github.com/stiivgiaco" style="color:#66b2ff; text-decoration:none;">stiivgiaco</a></p>
-</footer>
+
+    <p style="margin:0;">
+      &copy; 2025 Marine Weather Dashboard. All rights reserved.
+    </p>
+
+    <p style="margin:0;">
+      Developed by
+      <a href="https://github.com/stiivgiaco"
+         style="color:#66b2ff; text-decoration:none;">
+        stiivgiaco
+      </a>
+    </p>
+
+  </footer>
+
 </body>
 </html>
