@@ -1,674 +1,851 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Marine Weather Dashboard Mon 18/05/2026 - Thur 21/05/2026</title>
-  <link rel="icon" href="https://img.icons8.com/?size=100&id=PWFg91wNxoc5&format=png" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marine Weather Dashboard Mon 18/05/2026 - Thur 21/05/2026</title>
+    <link
+      rel="icon"
+      href="https://img.icons8.com/?size=100&id=PWFg91wNxoc5&format=png"
+    />
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+    <style>
+      * {
+        box-sizing: border-box;
+      }
 
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background: #f0f0f0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      transition: background 0.3s, color 0.3s;
-    }
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        background: #f0f0f0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        transition:
+          background 0.3s,
+          color 0.3s;
+      }
 
-.header {
-  background: #fff;
-  border-bottom: 1px solid #ddd;
-  padding: 10px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
+      .header {
+        background: #fff;
+        border-bottom: 1px solid #ddd;
+        padding: 10px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
 
-.toggle-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 6px;
-}
+      .toggle-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 6px;
+      }
 
-    .toggle-switch {
-      position: relative;
-      display: inline-block;
-      width: 40px;
-      height: 22px;
-      margin-right: 10px;
-    }
+      .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 40px;
+        height: 22px;
+        margin-right: 10px;
+      }
 
-    .toggle-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
 
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      border-radius: 50px;
-      transition: 0.3s;
-    }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        border-radius: 50px;
+        transition: 0.3s;
+      }
 
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 18px;
-      width: 18px;
-      border-radius: 50%;
-      left: 2px;
-      bottom: 2px;
-      background-color: white;
-      transition: 0.3s;
-    }
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        border-radius: 50%;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        transition: 0.3s;
+      }
 
-    .toggle-switch input:checked + .slider {
-      background-color: #4c4c4c;
-    }
+      .toggle-switch input:checked + .slider {
+        background-color: #4c4c4c;
+      }
 
-    .toggle-switch input:checked + .slider:before {
-      transform: translateX(18px);
-    }
+      .toggle-switch input:checked + .slider:before {
+        transform: translateX(18px);
+      }
 
-    #toggle-text {
-      font-weight: bold;
-    }
+      #toggle-text {
+        font-weight: bold;
+      }
 
-.title {
-  margin-top: 8px;
-  font-weight: bold;
-  font-size: 16px;
-  text-align: center;
-}
+      .title {
+        margin-top: 8px;
+        font-weight: bold;
+        font-size: 16px;
+        text-align: center;
+      }
 
-    #clock {
-      margin-left: 8px;
-      font-weight: bold;
-      font-size: 16px;
-    }
+      #clock {
+        margin-left: 8px;
+        font-weight: bold;
+        font-size: 16px;
+      }
 
-    .dark {
-      background: #1e1e1e;
-      color: white;
-    }
+      .dark {
+        background: #1e1e1e;
+        color: white;
+      }
 
-    .dark iframe {
-      border-color: #444;
-    }
+      .dark iframe {
+        border-color: #444;
+      }
 
-    .dark .header {
-      background: #333;
-    }
+      .dark .header {
+        background: #333;
+      }
 
-    .dark .header div,
-    .dark a {
-      color: white;
-    }
+      .dark .header div,
+      .dark a {
+        color: white;
+      }
 
-    .dark a {
-      color: #ff9800;
-    }
+      .dark a {
+        color: #ff9800;
+      }
 
-    .dark .slider {
-      background-color: #444;
-    }
+      .dark .slider {
+        background-color: #444;
+      }
 
-    .dark .slider:before {
-      background-color: white;
-    }
+      .dark .slider:before {
+        background-color: white;
+      }
 
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      padding: 10px;
-      flex: 1 0 auto;
-    }
-
-    .frame-box {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .frame-box h3 {
-      margin: 0 0 5px 0;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .frame-box h3 img {
-      margin-right: 10px;
-    }
-
-    iframe {
-      width: 100%;
-      height: 400px;
-      border: 2px solid #ccc;
-      border-radius: 8px;
-      transition: border-color 0.3s;
-    }
-
-    .frame-link {
-      font-size: 14px;
-      margin-bottom: 5px;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-    }
-
-    .wide {
-      padding: 10px;
-    }
-
-    .wide iframe {
-      height: 400px;
-    }
-
-    .wide h3 {
-      margin: 5px 0;
-      text-align: center;
-      font-size: 18px;
-    }
-
-    .wide .frame-link {
-      justify-content: center;
-    }
-
-    .airport-button-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 10px;
-    }
-
-    .button-row {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .airport-button {
-      background-color: #e0e0e0;
-      color: #333;
-      font-weight: 500;
-      border: 1px solid #ccc;
-      padding: 8px 16px;
-      font-size: 14px;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: background-color 0.3s, color 0.3s;
-      cursor: pointer;
-    }
-
-    .airport-button:hover {
-      background-color: #d4d4d4;
-    }
-
-    .dark .airport-button {
-      background-color: #4a4a4a;
-      color: #f5f5f5;
-      border: 1px solid #555;
-    }
-
-    .dark .airport-button:hover {
-      background-color: #6a6a6a;
-    }
-
-    /* NEW FORECAST LINK HOVER EFFECT */
-    .forecast-link {
-      text-decoration: none;
-      color: inherit;
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 8px;
-      transition:
-        background-color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-      cursor: pointer;
-    }
-
-    .forecast-link:hover {
-      background-color: rgba(0, 0, 0, 0.06);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    }
-
-    .forecast-link:hover h3 {
-      text-decoration: underline;
-    }
-
-    .dark .forecast-link:hover {
-  background-color: rgba(255, 255, 255, 0.08);
-}
-
-.dark .forecast-link h3 {
-  color: white;
-}
-
-    .overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 1000;
-      padding: 10px;
-    }
-
-    .overlay iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      border-radius: 0;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-color: rgba(0, 0, 0, 0.6);
-      border: 2px solid white;
-      color: white;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      z-index: 1001;
-    }
-
-    .close-btn:hover {
-      background-color: rgba(0, 0, 0, 0.8);
-      transform: translateX(-50%) scale(1.1);
-    }
-
-    @media (max-width: 768px) {
       .grid {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 10px;
+        flex: 1 0 auto;
+      }
+
+      .frame-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .frame-box h3 {
+        margin: 0 0 5px 0;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .frame-box h3 img {
+        margin-right: 10px;
       }
 
       iframe {
+        width: 100%;
         height: 400px;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        transition: border-color 0.3s;
+      }
+
+      .frame-link {
+        font-size: 14px;
+        margin-bottom: 5px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+      }
+
+      .wide {
+        padding: 10px;
       }
 
       .wide iframe {
-        height: 300px;
+        height: 400px;
       }
-    }
-    
-  </style>
-</head>
 
-<body>
+      .wide h3 {
+        margin: 5px 0;
+        text-align: center;
+        font-size: 18px;
+      }
 
-  <div class="header">
-    <div class="toggle-container">
-      <label class="toggle-switch">
-        <input type="checkbox" onclick="document.body.classList.toggle('dark')" />
-        <span class="slider"></span>
-      </label>
-      <span id="toggle-text">☀️</span>
+      .wide .frame-link {
+        justify-content: center;
+      }
+
+      .airport-button-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+      }
+
+      .button-row {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .airport-button {
+        background-color: #e0e0e0;
+        color: #333;
+        font-weight: 500;
+        border: 1px solid #ccc;
+        padding: 8px 16px;
+        font-size: 14px;
+        border-radius: 6px;
+        text-decoration: none;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
+        cursor: pointer;
+      }
+
+      .airport-button:hover {
+        background-color: #d4d4d4;
+      }
+
+      .dark .airport-button {
+        background-color: #4a4a4a;
+        color: #f5f5f5;
+        border: 1px solid #555;
+      }
+
+      .dark .airport-button:hover {
+        background-color: #6a6a6a;
+      }
+
+      /* NEW FORECAST LINK HOVER EFFECT */
+      .forecast-link {
+        text-decoration: none;
+        color: inherit;
+        display: inline-block;
+        padding: 8px 14px;
+        border-radius: 8px;
+        transition:
+          background-color 0.2s ease,
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+        cursor: pointer;
+      }
+
+      .forecast-link:hover {
+        background-color: rgba(0, 0, 0, 0.06);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      }
+
+      .forecast-link:hover h3 {
+        text-decoration: underline;
+      }
+
+      .dark .forecast-link:hover {
+        background-color: rgba(255, 255, 255, 0.08);
+      }
+
+      .dark .forecast-link h3 {
+        color: white;
+      }
+
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 1000;
+        padding: 10px;
+      }
+
+      .overlay iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 0;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.6);
+        border: 2px solid white;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 1001;
+      }
+
+      .close-btn:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+        transform: translateX(-50%) scale(1.1);
+      }
+
+      @media (max-width: 768px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        iframe {
+          height: 400px;
+        }
+
+        .wide iframe {
+          height: 300px;
+        }
+      }
+
+      .forecast-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin: 20px 0;
+      }
+
+      .forecast-pill {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        padding: 10px 16px;
+        border-radius: 999px;
+
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+
+        text-decoration: none;
+        color: #222;
+        font-size: 14px;
+        font-weight: 600;
+
+        transition: all 0.2s ease;
+      }
+
+      .forecast-pill img {
+        width: 18px;
+        height: 14px;
+        object-fit: cover;
+        border-radius: 2px;
+      }
+
+      .forecast-pill:hover {
+        background: #e5e7eb;
+        transform: translateY(-1px);
+      }
+
+      .forecast-pill.active {
+        background: #1e3a8a;
+        color: white;
+        border-color: #1e3a8a;
+      }
+      .forecast-selector {
+        padding: 10px 14px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+
+        background: white;
+        color: #222;
+
+        font-size: 14px;
+        font-weight: 500;
+
+        cursor: pointer;
+        min-width: 220px;
+
+        transition: 0.2s ease;
+      }
+
+      .forecast-selector:hover {
+        border-color: #999;
+      }
+
+      .forecast-selector:focus {
+        outline: none;
+        border-color: #4b5563;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="toggle-container">
+        <label class="toggle-switch">
+          <input
+            type="checkbox"
+            onclick="document.body.classList.toggle('dark')"
+          />
+          <span class="slider"></span>
+        </label>
+        <span id="toggle-text">☀️</span>
+      </div>
+
+      <div class="title">
+        Marine Weather Dashboard Mon 18/05/2026 - Thur 21/05/2026
+        <span id="clock">🕒</span>
+      </div>
     </div>
 
-    <div class="title">
-      Marine Weather Dashboard Mon 18/05/2026 - Thur 21/05/2026
-      <span id="clock">🕒</span>
-    </div>
-  </div>
+    <div class="airport-button-container">
+      <div class="button-row">
+        <button class="airport-button" onclick="openAllOverlays()">
+          Open All Overlays
+        </button>
 
-  <div class="airport-button-container">
+        <!-- FORECAST SELECTOR -->
+        <select class="forecast-selector" onchange="openForecast(this)">
+          <option value="">Marine Forecasts</option>
 
-    <div class="button-row">
-      <button class="airport-button" onclick="openAllOverlays()">
-        Open All Overlays
-      </button>     
-    </div>
+          <option
+            value="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-monday"
+          >
+            Valletta — Monday
+          </option>
 
-    <div class="button-row">
-      <button class="airport-button" onclick="openOverlay('myforecastvlt')">
-        MyForecast - VLT
-      </button>
+          <option
+            value="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-monday"
+          >
+            Pozzallo — Monday
+          </option>
 
-      <button class="airport-button" onclick="openOverlay('myforecastpoz')">
-        MyForecast - Pozzallo
-      </button>
+          <option
+            value="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-thursday"
+          >
+            Pozzallo — Thursday
+          </option>
 
-      <button class="airport-button" onclick="openOverlay('myforecasttaow')">
-        MyForecast - Taormina Weather
-      </button>
+          <option
+            value="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-thursday"
+          >
+            Valletta — Thursday
+          </option>
+        </select>
+      </div>
 
-      <button class="airport-button" onclick="openOverlay('myforecastcatw')">
-        MyForecast - Catania Weather
-      </button>
-    </div>
-    <div class="button-row">
-      <button class="airport-button" onclick="openOverlay('mltislweath')">
-        Maltese Islands Weather
-      </button>
+      <div class="button-row">
+        <button class="airport-button" onclick="openOverlay('myforecastvlt')">
+          MyForecast - VLT
+        </button>
+
+        <button class="airport-button" onclick="openOverlay('myforecastpoz')">
+          MyForecast - Pozzallo
+        </button>
+
+        <button class="airport-button" onclick="openOverlay('myforecasttaow')">
+          MyForecast - Taormina Weather
+        </button>
+
+        <button class="airport-button" onclick="openOverlay('myforecastcatw')">
+          MyForecast - Catania Weather
+        </button>
+      </div>
+      <div class="button-row">
+        <button class="airport-button" onclick="openOverlay('mltislweath')">
+          Maltese Islands Weather
+        </button>
         <button class="airport-button" onclick="openOverlay('imettao')">
-        il Meteo Taormina
-      </button>
+          il Meteo Taormina
+        </button>
         <button class="airport-button" onclick="openOverlay('windy')">
-        Windy Forecast
-      </button>                 
-        <a class="airport-button"
-         href="https://www.maltairport.com/weather/3-day-forecast-for-mariners/"
-         target="_blank">
-        MIA Mariners Forecast
-        </a>     
+          Windy Forecast
+        </button>
+        <a
+          class="airport-button"
+          href="https://www.maltairport.com/weather/3-day-forecast-for-mariners/"
+          target="_blank"
+        >
+          MIA Mariners Forecast
+        </a>
+      </div>
     </div>
 
-  </div>
+    <div class="grid">
+      <!-- FORECAST LINKS 
 
-  <div class="grid">
+      <div class="frame-box">
+        <a
+          href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-monday"
+          target="_blank"
+          class="forecast-link"
+        >
+          <h3>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/3840px-Flag_of_Malta.svg.png"
+              width="20"
+              height="15"
+            />
+            Port of Valletta – Monday
+          </h3>
+        </a>
+      </div>
 
-    <!-- FORECAST LINKS -->
+      <div class="frame-box">
+        <a
+          href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-monday"
+          target="_blank"
+          class="forecast-link"
+        >
+          <h3>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
+              width="20"
+              height="15"
+            />
+            Porto di Pozzallo – Monday
+          </h3>
+        </a>
+      </div>
 
-    <div class="frame-box">
+      <div class="frame-box">
+        <a
+          href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-thursday"
+          target="_blank"
+          class="forecast-link"
+        >
+          <h3>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
+              width="20"
+              height="15"
+            />
+            Porto di Pozzallo – Thursday
+          </h3>
+        </a>
+      </div>
 
-      <a href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-monday"
-         target="_blank"
-         class="forecast-link">
+      <div class="frame-box">
+        <a
+          href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-thursday"
+          target="_blank"
+          class="forecast-link"
+        >
+          <h3>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/3840px-Flag_of_Malta.svg.png"
+              width="20"
+              height="15"
+            />
+            Port of Valletta – Thursday
+          </h3>
+        </a>
+      </div>-->
 
+      <!-- IFRAMES -->
+
+      <div class="frame-box">
         <h3>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/3840px-Flag_of_Malta.svg.png"
-               width="20"
-               height="15">
-          Port of Valletta – Monday
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/3840px-Flag_of_Malta.svg.png"
+            width="20"
+            height="15"
+          />
+          Port of Valletta
         </h3>
 
-      </a>
+        <a
+          class="frame-link"
+          href="https://www.myforecast.com/wave-wind-conditions.php?cwid=gn2562305&metric=true&condition=act&city_count=3&zip_code="
+          target="_blank"
+        >
+          <span>Open in New Tab</span>
+        </a>
 
-    </div>
+        <iframe
+          src="https://www.myforecast.com/wave-wind-conditions.php?cwid=gn2562305&metric=true&condition=act&city_count=3&zip_code="
+        ></iframe>
+      </div>
 
-    <div class="frame-box">
-
-      <a href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-monday"
-         target="_blank"
-         class="forecast-link">
-
+      <div class="frame-box">
         <h3>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
-               width="20"
-               height="15">
-          Porto di Pozzallo – Monday
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
+            width="20"
+            height="15"
+          />
+          Porto di Pozzallo
         </h3>
 
-      </a>
+        <a
+          class="frame-link"
+          href="https://www.myforecast.com/wave-wind-conditions.php?cwid=gn2523693&metric=true&condition=act&city_count=4&zip_code="
+          target="_blank"
+        >
+          <span>Open in New Tab</span>
+        </a>
 
-    </div>
+        <iframe
+          src="https://www.myforecast.com/wave-wind-conditions.php?cwid=gn2523693&metric=true&condition=act&city_count=4&zip_code="
+        ></iframe>
+      </div>
 
-    <div class="frame-box">
-
-      <a href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-thursday"
-         target="_blank"
-         class="forecast-link">
-
+      <div class="frame-box">
         <h3>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
-               width="20"
-               height="15">
-          Porto di Pozzallo – Thursday
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
+            width="20"
+            height="15"
+          />
+          Weather in Taormina
         </h3>
 
-      </a>
+        <a
+          class="frame-link"
+          href="https://www.myforecast.com/index.php?cwid=gn6537773&language=en&metric=true&city_count=4&search=1"
+          target="_blank"
+        >
+          <span>Open in New Tab</span>
+        </a>
 
-    </div>
+        <iframe
+          src="https://www.myforecast.com/index.php?cwid=gn6537773&language=en&metric=true&city_count=4&search=1"
+        ></iframe>
+      </div>
 
-    <div class="frame-box">
-
-      <a href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-thursday"
-         target="_blank"
-         class="forecast-link">
-
+      <div class="frame-box">
         <h3>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/3840px-Flag_of_Malta.svg.png"
-               width="20"
-               height="15">
-          Port of Valletta – Thursday
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
+            width="20"
+            height="15"
+          />
+          Weather in Catania
         </h3>
 
-      </a>
+        <a
+          class="frame-link"
+          href="https://www.myforecast.com/index.php?cwid=gn6541468&zipcode=&language=en&metric=true&city_count=4&search=1"
+          target="_blank"
+        >
+          <span>Open in New Tab</span>
+        </a>
 
-    </div>
+        <iframe
+          src="https://www.myforecast.com/index.php?cwid=gn6541468&zipcode=&language=en&metric=true&city_count=4&search=1"
+        ></iframe>
+      </div>
+      <div class="frame-box">
+        <h3>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/3840px-Flag_of_Malta.svg.png"
+            width="20"
+            height="15"
+          />
+          Weather in Malta
+        </h3>
 
-    <!-- IFRAMES -->
+        <a
+          class="frame-link"
+          href="https://www.malteseislandsweather.com/"
+          target="_blank"
+        >
+          <span>Open in New Tab</span>
+        </a>
 
-    <div class="frame-box">
-      <h3>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/3840px-Flag_of_Malta.svg.png"
-             width="20"
-             height="15">
-        Port of Valletta
-      </h3>
+        <iframe src="https://www.malteseislandsweather.com/"></iframe>
+      </div>
+      <div class="frame-box">
+        <h3>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
+            width="20"
+            height="15"
+          />
+          Weather in Taormina
+        </h3>
 
-      <a class="frame-link"
-         href="https://www.myforecast.com/wave-wind-conditions.php?cwid=gn2562305&metric=true&condition=act&city_count=3&zip_code="
-         target="_blank">
-        <span>Open in New Tab</span>
-      </a>
+        <a
+          class="frame-link"
+          href="https://www.ilmeteo.it/meteo/taormina"
+          target="_blank"
+        >
+          <span>Open in New Tab</span>
+        </a>
 
-      <iframe src="https://www.myforecast.com/wave-wind-conditions.php?cwid=gn2562305&metric=true&condition=act&city_count=3&zip_code="></iframe>
-    </div>
-
-    <div class="frame-box">
-      <h3>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
-             width="20"
-             height="15">
-        Porto di Pozzallo
-      </h3>
-
-      <a class="frame-link"
-         href="https://www.myforecast.com/wave-wind-conditions.php?cwid=gn2523693&metric=true&condition=act&city_count=4&zip_code="
-         target="_blank">
-        <span>Open in New Tab</span>
-      </a>
-
-      <iframe src="https://www.myforecast.com/wave-wind-conditions.php?cwid=gn2523693&metric=true&condition=act&city_count=4&zip_code="></iframe>
-    </div>
-
-    <div class="frame-box">
-      <h3>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
-             width="20"
-             height="15">
-        Weather in Taormina
-      </h3>
-
-      <a class="frame-link"
-         href="https://www.myforecast.com/index.php?cwid=gn6537773&language=en&metric=true&city_count=4&search=1"
-         target="_blank">
-        <span>Open in New Tab</span>
-      </a>
-
-      <iframe src="https://www.myforecast.com/index.php?cwid=gn6537773&language=en&metric=true&city_count=4&search=1"></iframe>
+        <iframe src="https://www.ilmeteo.it/meteo/taormina"></iframe>
+      </div>
     </div>
 
     <div class="frame-box">
       <h3>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
-             width="20"
-             height="15">
-        Weather in Catania
+        <img
+          src="https://img.windy.com/albums/icons/logo-full.png?w=57"
+          width="20"
+          height="20"
+        />
+        Windy Wave Forecast
       </h3>
 
-      <a class="frame-link"
-         href="https://www.myforecast.com/index.php?cwid=gn6541468&zipcode=&language=en&metric=true&city_count=4&search=1"
-         target="_blank">
+      <a
+        class="frame-link"
+        href="https://www.windy.com/-Waves-waves?waves,2025041103,36.102,15.259,10"
+        target="_blank"
+      >
         <span>Open in New Tab</span>
       </a>
 
-      <iframe src="https://www.myforecast.com/index.php?cwid=gn6541468&zipcode=&language=en&metric=true&city_count=4&search=1"></iframe>
+      <iframe
+        src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=bft&zoom=5&overlay=waves&product=ecmwf&level=surface&lat=32.621&lon=14.502&detailLat=35.895&detailLon=14.484&detail=true&message=true"
+      ></iframe>
     </div>
- <div class="frame-box">
-      <h3>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/3840px-Flag_of_Malta.svg.png"
-             width="20"
-             height="15">
-        Weather in Malta
-      </h3>
 
-      <a class="frame-link"
-         href="https://www.malteseislandsweather.com/"
-         target="_blank">
-        <span>Open in New Tab</span>
-      </a>
-
-      <iframe src="https://www.malteseislandsweather.com/"></iframe>
-    </div>
- <div class="frame-box">
-      <h3>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
-             width="20"
-             height="15">
-        Weather in Taormina
-      </h3>
-
-      <a class="frame-link"
-         href="https://www.ilmeteo.it/meteo/taormina"
-         target="_blank">
-        <span>Open in New Tab</span>
-      </a>
-
+    <!-- OVERLAYS -->
+    <div class="overlay" id="imettao">
+      <button class="close-btn" onclick="closeOverlay('imettao')">×</button>
       <iframe src="https://www.ilmeteo.it/meteo/taormina"></iframe>
     </div>
-
-  </div>
-
-  <div class="frame-box">
-
-    <h3>
-      <img src="https://img.windy.com/albums/icons/logo-full.png?w=57"
-           width="20"
-           height="20">
-      Windy Wave Forecast
-    </h3>
-
-    <a class="frame-link"
-       href="https://www.windy.com/-Waves-waves?waves,2025041103,36.102,15.259,10"
-       target="_blank">
-      <span>Open in New Tab</span>
-    </a>
-
-    <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=bft&zoom=5&overlay=waves&product=ecmwf&level=surface&lat=32.621&lon=14.502&detailLat=35.895&detailLon=14.484&detail=true&message=true"></iframe>
-
-  </div>
-
-  <!-- OVERLAYS -->
-     <div class="overlay" id="imettao">
-    <button class="close-btn" onclick="closeOverlay('imettao')">×</button>
-    <iframe src="https://www.ilmeteo.it/meteo/taormina"></iframe>
-  </div>
-     <div class="overlay" id="mltislweath">
-    <button class="close-btn" onclick="closeOverlay('mltislweath')">×</button>
-    <iframe src="https://www.malteseislandsweather.com/"></iframe>
-  </div>
-  <div class="overlay" id="myforecastcatw">
-    <button class="close-btn" onclick="closeOverlay('myforecastcatw')">×</button>
-    <iframe src="https://www.myforecast.com/index.php?cwid=gn6541468&zipcode=&language=en&metric=true&city_count=4&search=1"></iframe>
-  </div>
+    <div class="overlay" id="mltislweath">
+      <button class="close-btn" onclick="closeOverlay('mltislweath')">×</button>
+      <iframe src="https://www.malteseislandsweather.com/"></iframe>
+    </div>
+    <div class="overlay" id="myforecastcatw">
+      <button class="close-btn" onclick="closeOverlay('myforecastcatw')">
+        ×
+      </button>
+      <iframe
+        src="https://www.myforecast.com/index.php?cwid=gn6541468&zipcode=&language=en&metric=true&city_count=4&search=1"
+      ></iframe>
+    </div>
     <div class="overlay" id="myforecasttaow">
-    <button class="close-btn" onclick="closeOverlay('myforecasttaow')">×</button>
-    <iframe src="https://www.myforecast.com/index.php?cwid=gn6537773&language=en&metric=true&city_count=4&search=1"></iframe>
-  </div>
+      <button class="close-btn" onclick="closeOverlay('myforecasttaow')">
+        ×
+      </button>
+      <iframe
+        src="https://www.myforecast.com/index.php?cwid=gn6537773&language=en&metric=true&city_count=4&search=1"
+      ></iframe>
+    </div>
     <div class="overlay" id="myforecastpoz">
-    <button class="close-btn" onclick="closeOverlay('myforecastpoz')">×</button>
-    <iframe src="https://www.myforecast.com/wave-wind-conditions.php?cwid=gn2523693&metric=true&condition=act&city_count=4&zip_code="></iframe>
-  </div>
+      <button class="close-btn" onclick="closeOverlay('myforecastpoz')">
+        ×
+      </button>
+      <iframe
+        src="https://www.myforecast.com/wave-wind-conditions.php?cwid=gn2523693&metric=true&condition=act&city_count=4&zip_code="
+      ></iframe>
+    </div>
     <div class="overlay" id="myforecastvlt">
-    <button class="close-btn" onclick="closeOverlay('myforecastvlt')">×</button>
-    <iframe src="https://www.myforecast.com/wave-wind-conditions.php?cwid=gn2562305&metric=true&condition=act&city_count=3&zip_code="></iframe>
-  </div>
-  <div class="overlay" id="windy">
-    <button class="close-btn" onclick="closeOverlay('windy')">×</button>
-    <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=bft&zoom=5&overlay=wind&product=ecmwf&level=surface&lat=32.621&lon=14.502&detailLat=35.895&detailLon=14.484&detail=true&message=true"></iframe>
-  </div>
-  <script>
-    const toggleText = document.getElementById('toggle-text');
-    const clock = document.getElementById('clock');
+      <button class="close-btn" onclick="closeOverlay('myforecastvlt')">
+        ×
+      </button>
+      <iframe
+        src="https://www.myforecast.com/wave-wind-conditions.php?cwid=gn2562305&metric=true&condition=act&city_count=3&zip_code="
+      ></iframe>
+    </div>
+    <div class="overlay" id="windy">
+      <button class="close-btn" onclick="closeOverlay('windy')">×</button>
+      <iframe
+        src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=bft&zoom=5&overlay=wind&product=ecmwf&level=surface&lat=32.621&lon=14.502&detailLat=35.895&detailLon=14.484&detail=true&message=true"
+      ></iframe>
+    </div>
+    <script>
+      const toggleText = document.getElementById("toggle-text");
+      const clock = document.getElementById("clock");
 
-    function updateTime() {
-      const now = new Date();
-      clock.textContent = '🕒 Current Time: ' + now.toLocaleTimeString();
-    }
+      function updateTime() {
+        const now = new Date();
+        clock.textContent = "🕒 Current Time: " + now.toLocaleTimeString();
+      }
 
-    setInterval(updateTime, 1000);
-    updateTime();
+      setInterval(updateTime, 1000);
+      updateTime();
 
-    const checkbox = document.querySelector('.toggle-switch input');
+      const checkbox = document.querySelector(".toggle-switch input");
 
-    checkbox.addEventListener('change', () => {
-      toggleText.textContent = checkbox.checked ? "🌙" : "☀️";
-    });
-
-    function openOverlay(id) {
-      document.getElementById(id).style.display = 'block';
-    }
-
-    function closeOverlay(id) {
-      document.getElementById(id).style.display = 'none';
-    }
-
-    function openAllOverlays() {
-      [
-        'windy',
-        'myforecastvlt',
-        'myforecastpoz',
-        'myforecasttaow',
-        'myforecastcatw',
-        'mltislweath',
-        'imettao'
-      ].forEach(id => {
-        openOverlay(id);
+      checkbox.addEventListener("change", () => {
+        toggleText.textContent = checkbox.checked ? "🌙" : "☀️";
       });
+
+      function openOverlay(id) {
+        document.getElementById(id).style.display = "block";
+      }
+
+      function closeOverlay(id) {
+        document.getElementById(id).style.display = "none";
+      }
+
+      function openAllOverlays() {
+        [
+          "windy",
+          "myforecastvlt",
+          "myforecastpoz",
+          "myforecasttaow",
+          "myforecastcatw",
+          "mltislweath",
+          "imettao",
+        ].forEach((id) => {
+          openOverlay(id);
+        });
+      }
+    </script>
+
+    <footer
+      style="
+        background-color: #222;
+        padding: 1rem 0;
+        text-align: center;
+        font-size: 0.9rem;
+        color: #ccc;
+      "
+    >
+      <p style="margin: 0">
+        &copy; 2025 Marine Weather Dashboard. All rights reserved.
+      </p>
+
+      <p style="margin: 0">
+        Developed by
+        <a
+          href="https://github.com/stiivgiaco"
+          style="color: #66b2ff; text-decoration: none"
+        >
+          stiivgiaco
+        </a>
+      </p>
+    </footer>
+  </body>
+  <script>
+    function openForecast(selectElement) {
+      const url = selectElement.value;
+
+      if (url) {
+        window.open(url, "_blank");
+
+        // Reset back to default label
+        selectElement.selectedIndex = 0;
+      }
     }
   </script>
-
-  <footer style="background-color:#222; padding:1rem 0; text-align:center; font-size:0.9rem; color:#ccc;">
-
-    <p style="margin:0;">
-      &copy; 2025 Marine Weather Dashboard. All rights reserved.
-    </p>
-
-    <p style="margin:0;">
-      Developed by
-      <a href="https://github.com/stiivgiaco"
-         style="color:#66b2ff; text-decoration:none;">
-        stiivgiaco
-      </a>
-    </p>
-
-  </footer>
-
-</body>
 </html>
