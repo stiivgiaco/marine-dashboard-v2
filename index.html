@@ -350,14 +350,10 @@
     <div class="button-row">
       <button class="airport-button" onclick="openAllOverlays()">
         Open All Overlays
-      </button>
+      </button>     
     </div>
 
     <div class="button-row">
-      <button class="airport-button" onclick="openOverlay('windy')">
-        Windy Forecast
-      </button>
-
       <button class="airport-button" onclick="openOverlay('myforecastvlt')">
         MyForecast - VLT
       </button>
@@ -373,12 +369,22 @@
       <button class="airport-button" onclick="openOverlay('myforecastcatw')">
         MyForecast - Catania Weather
       </button>
-
-      <a class="airport-button"
+    </div>
+    <div class="button-row">
+      <button class="airport-button" onclick="openOverlay('mltislweath')">
+        Maltese Islands Weather
+      </button>
+        <button class="airport-button" onclick="openOverlay('imettao')">
+        il Meteo Taormina
+      </button>
+        <button class="airport-button" onclick="openOverlay('windy')">
+        Windy Forecast
+      </button>                 
+        <a class="airport-button"
          href="https://www.maltairport.com/weather/3-day-forecast-for-mariners/"
          target="_blank">
         MIA Mariners Forecast
-      </a>
+        </a>     
     </div>
 
   </div>
@@ -397,7 +403,7 @@
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/3840px-Flag_of_Malta.svg.png"
                width="20"
                height="15">
-          Port of Valletta – Next Monday
+          Port of Valletta – Monday
         </h3>
 
       </a>
@@ -414,7 +420,7 @@
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
                width="20"
                height="15">
-          Porto di Pozzallo – Next Monday
+          Porto di Pozzallo – Monday
         </h3>
 
       </a>
@@ -423,7 +429,7 @@
 
     <div class="frame-box">
 
-      <a href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-next-thursday"
+      <a href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/port-1740/weather-forecast-porto-di-pozzallo-thursday"
          target="_blank"
          class="forecast-link">
 
@@ -431,7 +437,7 @@
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
                width="20"
                height="15">
-          Porto di Pozzallo – Next Thursday
+          Porto di Pozzallo – Thursday
         </h3>
 
       </a>
@@ -440,7 +446,7 @@
 
     <div class="frame-box">
 
-      <a href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-next-thursday"
+      <a href="https://marine.meteoconsult.co.uk/marine-weather/weather-forecasts/marina-698/weather-forecast-marina-di-valletta-thursday"
          target="_blank"
          class="forecast-link">
 
@@ -448,7 +454,7 @@
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/3840px-Flag_of_Malta.svg.png"
                width="20"
                height="15">
-          Port of Valletta – Next Thursday
+          Port of Valletta – Thursday
         </h3>
 
       </a>
@@ -524,6 +530,38 @@
 
       <iframe src="https://www.myforecast.com/index.php?cwid=gn6541468&zipcode=&language=en&metric=true&city_count=4&search=1"></iframe>
     </div>
+ <div class="frame-box">
+      <h3>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/3840px-Flag_of_Malta.svg.png"
+             width="20"
+             height="15">
+        Weather in Malta
+      </h3>
+
+      <a class="frame-link"
+         href="https://www.malteseislandsweather.com/"
+         target="_blank">
+        <span>Open in New Tab</span>
+      </a>
+
+      <iframe src="https://www.malteseislandsweather.com/"></iframe>
+    </div>
+ <div class="frame-box">
+      <h3>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_Sicily.svg/3840px-Flag_of_Sicily.svg.png"
+             width="20"
+             height="15">
+        Weather in Taormina
+      </h3>
+
+      <a class="frame-link"
+         href="https://www.ilmeteo.it/meteo/taormina"
+         target="_blank">
+        <span>Open in New Tab</span>
+      </a>
+
+      <iframe src="https://www.ilmeteo.it/meteo/taormina"></iframe>
+    </div>
 
   </div>
 
@@ -547,6 +585,14 @@
   </div>
 
   <!-- OVERLAYS -->
+     <div class="overlay" id="imettao">
+    <button class="close-btn" onclick="closeOverlay('imettao')">×</button>
+    <iframe src="https://www.ilmeteo.it/meteo/taormina"></iframe>
+  </div>
+     <div class="overlay" id="mltislweath">
+    <button class="close-btn" onclick="closeOverlay('mltislweath')">×</button>
+    <iframe src="https://www.malteseislandsweather.com/"></iframe>
+  </div>
   <div class="overlay" id="myforecastcatw">
     <button class="close-btn" onclick="closeOverlay('myforecastcatw')">×</button>
     <iframe src="https://www.myforecast.com/index.php?cwid=gn6541468&zipcode=&language=en&metric=true&city_count=4&search=1"></iframe>
@@ -599,7 +645,9 @@
         'myforecastvlt',
         'myforecastpoz',
         'myforecasttaow',
-        'myforecastcatw'
+        'myforecastcatw',
+        'mltislweath',
+        'imettao'
       ].forEach(id => {
         openOverlay(id);
       });
